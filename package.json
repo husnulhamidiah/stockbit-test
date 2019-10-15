@@ -4,12 +4,19 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "node -r esm index.js",
+    "dev": "npx nodemon --exec 'DEBUG=stockbit-test:* node -r esm index.js'",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Husnul Anwari <husnulhamidiah@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "esm": "^3.2.25"
+    "debug": "^4.1.1",
+    "dotenv": "^8.1.0",
+    "esm": "^3.2.25",
+    "express": "^4.17.1",
+    "jsend": "^1.1.0",
+    "morgan": "^1.9.1"
   },
   "devDependencies": {
     "eslint": "^6.5.1",
@@ -17,6 +24,7 @@
     "eslint-plugin-import": "^2.18.2",
     "eslint-plugin-node": "^10.0.0",
     "eslint-plugin-promise": "^4.2.1",
-    "eslint-plugin-standard": "^4.0.1"
+    "eslint-plugin-standard": "^4.0.1",
+    "nodemon": "^1.19.3"
   }
 }
