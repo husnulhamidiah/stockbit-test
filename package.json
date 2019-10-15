@@ -1,0 +1,22 @@
+{
+  "name": "stockbit-test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Husnul Anwari <husnulhamidiah@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "esm": "^3.2.25"
+  },
+  "devDependencies": {
+    "eslint": "^6.5.1",
+    "eslint-config-standard": "^14.1.0",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-node": "^10.0.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.1"
+  }
+}
