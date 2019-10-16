@@ -9,7 +9,7 @@
     "db:drop": "npx sequelize-cli db:drop",
     "db:create": "npx sequelize-cli db:create",
     "db:migrate": "npx sequelize-cli db:migrate",
-    "db:setup": "npm run db:drop && npm run db:create && npm run db:migrate",
+    "db:setup": "npm run db:create && npm run db:migrate",
     "test": "NODE_ENV=test npx -n '-r dotenv/config -r esm' nyc --require esm --reporter lcov --reporter text mocha test/* --reporter list"
   },
   "author": "Husnul Anwari <husnulhamidiah@gmail.com>",
