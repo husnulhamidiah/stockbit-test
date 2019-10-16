@@ -6,6 +6,7 @@ const router = Router()
 const wrap = fn => (...args) => fn(...args).catch(args[2])
 
 router.get('/movies', wrap(movies.list))
+router.get('/movies/:id', wrap(movies.show))
 router.get('/', (req, res) => res.status(200).json({ data: 'ok', status: 'success' }))
 
 router.use('*', (req, res) => res.status(404).json({ message: 'route not found', status: 'fail' }))

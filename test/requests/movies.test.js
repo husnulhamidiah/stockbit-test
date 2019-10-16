@@ -111,6 +111,94 @@ describe('route /movies', () => {
   })
 })
 
+describe('route /movies/:id', () => {
+  beforeEach(() => {
+    return Log.sync({ force: true })
+  })
+
+  describe('with complete params', () => {
+    it('should return array of movies', async () => {
+      const response = {
+        Title: 'The Social Network',
+        Year: '2010',
+        Rated: 'PG-13',
+        Response: 'True'
+      }
+
+      nock('http://www.omdbapi.com')
+        .get('/')
+        .query(true)
+        .reply(200, response)
+
+      const result = await request
+        .get('/api/movies/tt1285016/?apikey=28kzl')
+
+      expect(result.status).to.equal(200)
+      expect(result.body.data).to.deep.equal(response)
+    })
+
+    it('should return movie not found', async () => {
+      const response = {
+        Response: 'False',
+        Error: 'Movie not found!'
+      }
+
+      nock('http://www.omdbapi.com')
+        .get('/')
+        .query(true)
+        .reply(200, response)
+
+      const result = await request
+        .get('/api/movies/tt1285016/?apikey=28kzl')
+
+      expect(result.status).to.equal(200)
+      expect(result.body.data).to.deep.equal(response)
+    })
+  })
+
+  describe('with incomplete params', () => {
+    it('should return no api key provided', async () => {
+      const response = {
+        Error: 'No API key provided.',
+        Response: 'False'
+      }
+
+      nock('http://www.omdbapi.com')
+        .get('/')
+        .query(true)
+        .reply(401, response)
+
+      const result = await request
+        .get('/api/movies/tt1285016/')
+
+      expect(result.status).to.equal(401)
+      expect(result.body.data).to.deep.equal(response)
+    })
+
+    it('should return invalid api key', async () => {
+      const response = {
+        Error: 'Invalid API key!',
+        Response: 'False'
+      }
+
+      nock('http://www.omdbapi.com')
+        .get('/')
+        .query(true)
+        .reply(401, response)
+
+      const result = await request
+        .get('/api/movies/tt1285016/?apikey=29ms9')
+
+      expect(result.status).to.equal(401)
+      expect(result.body.data).to.deep.equal(response)
+    })
+  })
+
+  after(() => {
+    return Log.sync({ force: true })
+  })
+})
+
 after(() => {
   nock.restore()
   sequelize.close()

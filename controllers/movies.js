@@ -37,6 +37,31 @@ export const list = async (req, res) => {
   }
 }
 
+export const show = async (req, res) => {
+  const { id } = req.params
+  const { apikey } = req.query
+  const params = { i: id, apikey }
+
+  try {
+    const { status, data } = await request({ params })
+    await logRequest(id, { data, status: 'success', code: status })
+    return res.status(status).json({ data, status: 'success' })
+  } catch (error) {
+    if (error.response) {
+      const { status, data } = error.response
+      await logRequest(id, { data, status: 'fail', code: status })
+      return res.status(status).json({ data, status: 'fail' })
+    } else if (error.request) {
+      await logRequest(id, { data: null, status: 'fail', code: 500 })
+      return res.status(500).json({ status: 'fail' })
+    } else {
+      await logRequest(id, { data: null, status: 'fail', code: 500 })
+      return res.status(500).json({ message: error.message, status: 'fail' })
+    }
+  }
+}
+
 export default {
-  list
+  list,
+  show
 }
