@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node -r esm index.js",
+    "start": "DEBUG=stockbit-test:* node -r esm index.js",
     "dev": "npx nodemon --exec 'DEBUG=stockbit-test:* node -r esm index.js'",
     "db:drop": "npx sequelize-cli db:drop",
     "db:create": "npx sequelize-cli db:create",
